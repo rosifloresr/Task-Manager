@@ -13,7 +13,7 @@ export class ProductsService {
       throw new InternalServerErrorException('Error al crear el producto en el catálogo.');
     }
   }
-
+ 
   async findAll() {
     return await this.prisma.product.findMany({
       orderBy: { createdAt: 'desc' },

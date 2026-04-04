@@ -4,6 +4,7 @@ import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { LoginDto } from './dto/login.dto';
 import { RegisterDto } from './dto/register.dto';
+import { createHash } from 'crypto';
 
 @Injectable()
 export class AuthService {
@@ -43,6 +44,23 @@ export class AuthService {
         return {
             user: {email: user.email, role: user.role},
             token: this.jwtService.sign(payload),
+        }
+    }
+
+    async validateToken(token: string){
+        try{
+            const payload = await this.jwtService.verifyAsync(token, {
+                secret: process.env.JWT_SECRET,
+            });
+            
+            return {
+                id: payload.id,
+                email: payload.email,
+                role: payload.role,
+                valid: true,
+            };
+        } catch (error) {
+            throw new UnauthorizedException('Token inválido o expirado');
         }
     }
 

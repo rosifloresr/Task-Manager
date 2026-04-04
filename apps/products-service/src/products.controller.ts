@@ -1,13 +1,13 @@
 import { Controller, Get, Post, Body, Param, ParseUUIDPipe, UseGuards } from '@nestjs/common';
 import { ProductsService } from './products.service';
 import { CreateProductDto } from './dto/create-product.dto';
-import { JwtAuthGuard } from '../../auth-service/src/guards/jwt-auth.guard';
+import { RemoteAuthGuard } from '@app/common/guards/remote-auth.guard';
 
-@Controller('products')
+@Controller()
 export class ProductsController {
   constructor(private readonly productsService: ProductsService) {}
 
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(RemoteAuthGuard)
   @Post()
   create(@Body() createProductDto: CreateProductDto) {
     return this.productsService.create(createProductDto);
