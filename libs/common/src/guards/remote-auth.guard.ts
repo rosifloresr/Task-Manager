@@ -15,12 +15,11 @@ export class RemoteAuthGuard implements CanActivate {
     const token = authHeader.split(' ')[1];
 
     try {
-      // 🛰️ Todos los microservicios llamarán a este mismo endpoint central
       const { data } = await firstValueFrom(
         this.httpService.get(`http://localhost:3001/validate?token=${token}`)
       );
 
-      request.user = data; // Inyectamos el usuario (id, email, role)
+      request.user = data; 
       return true;
     } catch (e) {
       throw new UnauthorizedException('Token inválido o Auth Service offline');

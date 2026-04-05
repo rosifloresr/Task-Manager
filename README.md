@@ -13,24 +13,3 @@ Hasta ahora:
 (1) Levantar DB: docker-compose up -d
 (2) Generar Cliente: npx prisma@6.19.2 generate
 (3) Migrar y Seed: npx prisma migrate dev && npx prisma db seed
-
-curl -X POST http://localhost:3000/auth/register \
-     -H "Content-Type: application/json" \
-     -d '{
-       "email": "CIROFLORES.developer@apple.com",
-       "password": "password1243"
-     }'
-
-curl -X POST http://localhost:3000/auth/login \
-     -H "Content-Type: application/json" \
-     -d '{
-       "email": "CIROFLORES.developer@apple.com",
-       "password": "password1243"
-     }'
-
-     {"user":{"email":"CIROFLORES.developer@apple.com","role":"CUSTOMER"},"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImJmYTBkYTVhLWUzZWMtNDYwZi04NzY1LTk2NmY3M2NhZDNiNiIsImVtYWlsIjoiQ0lST0ZMT1JFUy5kZXZlbG9wZXJAYXBwbGUuY29tIiwicm9sZSI6IkNVU1RPTUVSIiwiaWF0IjoxNzc1Mjc5ODM5LCJleHAiOjE3NzUzNjYyMzl9.hIklfV3WtxkMmBFhykbCqDVFvrm2QYeME5i1LrOQjJY"}%    
-
-     curl -i -X POST http://localhost:3000/products \
-     -H "Content-Type: application/json" \
-     -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImJmYTBkYTVhLWUzZWMtNDYwZi04NzY1LTk2NmY3M2NhZDNiNiIsImVtYWlsIjoiQ0lST0ZMT1JFUy5kZXZlbG9wZXJAYXBwbGUuY29tIiwicm9sZSI6IkNVU1RPTUVSIiwiaWF0IjoxNzc1Mjc5ODM5LCJleHAiOjE3NzUzNjYyMzl9.hIklfV3WtxkMmBFhykbCqDVFvrm2QYeME5i1LrOQjJY" \
-     -d '{"name": "ddd DE KIKI Pro", "price": 400, "stock": 13}'
