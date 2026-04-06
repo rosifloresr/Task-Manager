@@ -11,13 +11,13 @@ En esta etapa inicial, establecimos lo cimientos del sistema utilizando un enfoq
 ### Fase 2: Migración a microservicios y segregación de datos.
 Se transformo el monilito en un sistema distribuido, desacoplando la lógica de negocio y persistencia.
 
-**-Arquitectura de monorepo:** Implementación de NestJS monorepo gestionando múltiples aplicaciones en apps/:
+- **Arquitectura de monorepo:** Implementación de NestJS monorepo gestionando múltiples aplicaciones en apps/:
     * Auth-services: Corazón de la identidad y seguridad.
     * Products-service: Gestión del catálogo de productos.
     * api-gateway: Punto de entrada único (proxy) que rutea el tráfico externo.
-**-Segregación logica de base de datos (database per service):** Configuración de esquemas independientes en postgresSQL para evitar acoplamiento. Esquema Auth (Exclusivo para usuarios) y Esquema products (Exclusivo para el catálogo).
+- **Segregación logica de base de datos (database per service):** Configuración de esquemas independientes en postgresSQL para evitar acoplamiento. Esquema Auth (Exclusivo para usuarios) y Esquema products (Exclusivo para el catálogo).
 Clientes prisma localizados, cada microservicio genera su propio cliente ./client, garantizando que el auth-service no tennga acceso accidental a las tablas de productos (y viceversa).
-**-Comunicación inter-servicios e infraestructura:**
+- **Comunicación inter-servicios e infraestructura:**
     * Hybrid Auth Guard: Implementación de una libreria compartida para que el servicio de productos valide tokens JWT consultando al servicio de Auth vía HTTP.
     * Aislamiento de entorno: Uso el dotenv-cli para cargar archivos .env específicos por servicio, evitando conflictos de puertos y credenciales.
     * Scripts centralzidos: automatización de migraciones y seeds quirúrgicos desde la raíz del proyecto.
