@@ -2,6 +2,7 @@ import { Controller, Get, Post, Body, Param, ParseUUIDPipe, UseGuards } from '@n
 import { ProductsService } from './products.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { RemoteAuthGuard } from '@app/common/guards/remote-auth.guard';
+import { fromEventPattern } from 'rxjs';
 
 @Controller()
 export class ProductsController {
@@ -22,4 +23,11 @@ export class ProductsController {
   findOne(@Param('id', new ParseUUIDPipe()) id: string) {
     return this.productsService.findOne(id);
   }
+  
+  @EventPattern('order_created')
+  async handleOrderCreated(data: any) {
+    console.log('📦 Evento recibido: Descontando stock para', data.productId);
+    await this.productsService.decreaseStock(data.productId, data.quantity);
+  }
+
 }

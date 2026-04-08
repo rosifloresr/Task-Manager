@@ -1,0 +1,28 @@
+// apps/orders-service/src/prisma/schema.prisma
+generator client {
+  provider = "prisma-client-js"
+  output   = "./client"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum OrderStatus {
+  PENDING
+  PAID
+  CANCELLED
+}
+
+model Order {
+  id        String      @id @default(uuid())
+  userId    String      // id que viene del jwt
+  productId String      //id del producto
+  quantity  Int
+  total     Float
+  status    OrderStatus @default(PENDING)
+  createdAt DateTime    @default(now())
+
+  @@map("orders")
+}

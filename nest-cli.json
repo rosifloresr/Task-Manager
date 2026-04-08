@@ -21,6 +21,24 @@
         "tsConfigPath": "apps/auth-service/tsconfig.app.json"
       }
     },
+    "orders": {
+      "type": "application",
+      "root": "apps/orders",
+      "entryFile": "main",
+      "sourceRoot": "apps/orders/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/orders/tsconfig.app.json"
+      }
+    },
+    "orders-service": {
+      "type": "application",
+      "root": "apps/orders-service",
+      "entryFile": "main",
+      "sourceRoot": "apps/orders-service/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/orders-service/tsconfig.app.json"
+      }
+    },
     "products-service": {
       "type": "application",
       "root": "apps/products-service",
