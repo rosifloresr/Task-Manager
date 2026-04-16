@@ -38,8 +38,12 @@ En esta etapa, se implemento un sistema de mensajería par desacoplar los servic
     * Implementación de rutas de consulta directa (view-orders) para centralizar la visibilidad del estado de las transacciones.
 
 ## Pasos de ejecución:
-(1) Levantar DB: docker-compose up -d
+(1) Levantar DB: 
+
+    docker-compose up -d
+
 (2) Configurar entornos: Cada servicio dene tener su archivo .env
+
 (3) Migraciones y generación de clientes: Scripsts 
 
     npm run prisma:prod:mig -- --name init
