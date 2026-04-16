@@ -41,6 +41,7 @@ En esta etapa, se implemento un sistema de mensajería par desacoplar los servic
 (1) Levantar DB: docker-compose up -d
 (2) Configurar entornos: Cada servicio dene tener su archivo .env
 (3) Migraciones y generación de clientes: Scripsts 
+
     npm run prisma:prod:mig -- --name init
     npm run prisma:auth:mig -- --name init
     npm run prisma:orders:mig -- --name init
@@ -48,9 +49,13 @@ En esta etapa, se implemento un sistema de mensajería par desacoplar los servic
     npm run prisma:auth:gen
     npm run prisma:prod:gen
     npm run prisma:orders:gen
+
 (4) Carga de datos (seeds): pruebo las db de forma independiente.
+
     npm run seed:auth  # Crea usuario Ciro
     npm run seed:prod  # Crea catálogo Apple
+
 (5) Iniciar sistema:
+
     npm run dev
 
