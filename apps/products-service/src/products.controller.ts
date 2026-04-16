@@ -1,12 +1,14 @@
-import { Controller, Get, Post, Body, Param, ParseUUIDPipe, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, ParseUUIDPipe, UseGuards} from '@nestjs/common';
 import { ProductsService } from './products.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { RemoteAuthGuard } from '@app/common/guards/remote-auth.guard';
-import { fromEventPattern } from 'rxjs';
+import { EventPattern, Payload, ClientProxy } from '@nestjs/microservices';
 
 @Controller()
 export class ProductsController {
-  constructor(private readonly productsService: ProductsService) {}
+  constructor(
+    private readonly productsService: ProductsService
+  ) {}
 
   @UseGuards(RemoteAuthGuard)
   @Post()
@@ -25,9 +27,7 @@ export class ProductsController {
   }
   
   @EventPattern('order_created')
-  async handleOrderCreated(data: any) {
-    console.log('📦 Evento recibido: Descontando stock para', data.productId);
-    await this.productsService.decreaseStock(data.productId, data.quantity);
+  handleOrderCreated(@Payload() data: { productId: string; quantity: number; orderId: string }) {
+    return this.productsService.handleOrderCreated(data);
   }
-
 }

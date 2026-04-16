@@ -13,6 +13,7 @@ enum OrderStatus {
   PENDING
   PAID
   CANCELLED
+  COMPLETED
 }
 
 model Order {

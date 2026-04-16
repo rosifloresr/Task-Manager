@@ -9,7 +9,7 @@ import { PrismaModule } from './prisma/prisma.module';
 
 @Module({
   imports: [
-    ConfigModule, 
+    ConfigModule.forRoot({isGlobal: true, envFilePath: 'apps/auth-service/.env',}), 
     PrismaModule, 
     PassportModule.register({ defaultStrategy: 'jwt' }),
     JwtModule.registerAsync({

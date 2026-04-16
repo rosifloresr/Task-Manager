@@ -18,25 +18,25 @@
       "entryFile": "main",
       "sourceRoot": "apps/auth-service/src",
       "compilerOptions": {
-        "tsConfigPath": "apps/auth-service/tsconfig.app.json"
+        "tsConfigPath": "apps/auth-service/tsconfig.app.json",
+        "assets": [
+          { "include": "prisma/client/**/*"}
+        ],
+        "watchAssets": true
       }
     },
-    "orders": {
-      "type": "application",
-      "root": "apps/orders",
-      "entryFile": "main",
-      "sourceRoot": "apps/orders/src",
-      "compilerOptions": {
-        "tsConfigPath": "apps/orders/tsconfig.app.json"
-      }
-    },
+  
     "orders-service": {
       "type": "application",
       "root": "apps/orders-service",
       "entryFile": "main",
       "sourceRoot": "apps/orders-service/src",
       "compilerOptions": {
-        "tsConfigPath": "apps/orders-service/tsconfig.app.json"
+        "tsConfigPath": "apps/orders-service/tsconfig.app.json",
+        "assets": [
+          { "include": "prisma/client/**/*" }
+        ],
+        "watchAssets": true
       }
     },
     "products-service": {
@@ -45,7 +45,11 @@
       "entryFile": "main",
       "sourceRoot": "apps/products-service/src",
       "compilerOptions": {
-        "tsConfigPath": "apps/products-service/tsconfig.app.json"
+        "tsConfigPath": "apps/products-service/tsconfig.app.json",
+        "assets": [
+          { "include": "prisma/client/**/*"}
+        ],
+        "watchAssets": true
       }
     }
   }

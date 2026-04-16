@@ -6,23 +6,34 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
-    "build": "nest build",
-    "format": "prettier --write \"apps/**/*.ts\" \"libs/**/*.ts\"",
+    "build": "npm run prisma:gen && nest build",
+
+    "prisma:gen": "npm run prisma:auth:gen && npm run prisma:prod:gen && npm run prisma:orders:gen",
+
+    "prisma:auth:gen": "dotenv -e apps/auth-service/.env -- prisma generate --schema=apps/auth-service/src/prisma/schema.prisma",
+    "prisma:prod:gen": "dotenv -e apps/products-service/.env -- prisma generate --schema=apps/products-service/src/prisma/schema.prisma",
+    "prisma:orders:gen": "dotenv -e apps/orders-service/.env -- prisma generate --schema=apps/orders-service/src/prisma/schema.prisma",
+
+    "prisma:auth:mig": "dotenv -e apps/auth-service/.env -- prisma migrate dev --schema=apps/auth-service/src/prisma/schema.prisma",
+    "prisma:prod:mig": "dotenv -e apps/products-service/.env -- prisma migrate dev --schema=apps/products-service/src/prisma/schema.prisma",
+    "prisma:orders:mig": "dotenv -e apps/orders-service/.env -- prisma migrate dev --schema=apps/orders-service/src/prisma/schema.prisma",
+
     "start:auth": "nest start auth-service --watch",
     "start:products": "nest start products-service --watch",
+    "start:orders": "nest start orders-service --watch",
     "start:gateway": "nest start api-gateway --watch",
-    "dev": "concurrently \"npm run start:auth\" \"npm run start:products\" \"npm run start:gateway\"",
+
+    "dev": "concurrently \"npm run start:auth\" \"npm run start:products\" \"npm run start:orders\" \"npm run start:gateway\"",
+
+    "format": "prettier --write \"apps/**/*.ts\" \"libs/**/*.ts\"",
     "lint": "eslint \"{apps,libs}/**/*.ts\" --fix",
     "test": "jest",
+
     "seed:auth": "dotenv -e apps/auth-service/.env -- ts-node apps/auth-service/src/prisma/seed.ts",
     "seed:prod": "dotenv -e apps/products-service/.env -- ts-node apps/products-service/src/prisma/seed.ts",
-    "prisma:auth:mig": "dotenv -e apps/auth-service/.env -- npx prisma migrate dev --schema=apps/auth-service/src/prisma/schema.prisma",
-    "prisma:prod:mig": "dotenv -e apps/products-service/.env -- npx prisma migrate dev --schema=apps/products-service/src/prisma/schema.prisma",
-    "prisma:auth:gen": "dotenv -e apps/auth-service/.env -- npx prisma generate --schema=apps/auth-service/src/prisma/schema.prisma",
-    "prisma:prod:gen": "dotenv -e apps/products-service/.env -- npx prisma generate --schema=apps/products-service/src/prisma/schema.prisma",
-    "prisma:orders:gen": "dotenv -e apps/orders-service/.env -- npx prisma generate --schema=apps/orders-service/src/prisma/schema.prisma",
-    "prisma:orders:mig": "dotenv -e apps/orders-service/.env -- npx prisma migrate dev --schema=apps/orders-service/src/prisma/schema.prisma"
-  },
+    "seed:orders": "dotenv -e apps/orders-service/.env -- ts-node apps/orders-service/src/prisma/seed.ts"
+  }
+,
   "dependencies": {
     "@nestjs/axios": "^4.0.1",
     "@nestjs/common": "^11.0.1",
@@ -32,7 +43,7 @@
     "@nestjs/microservices": "^11.1.18",
     "@nestjs/passport": "^11.0.5",
     "@nestjs/platform-express": "^11.0.1",
-    "@prisma/client": "^6.19.2",
+    "@prisma/client": "^6.19.3",
     "amqp-connection-manager": "^5.0.0",
     "amqplib": "^1.0.3",
     "axios": "^1.14.0",

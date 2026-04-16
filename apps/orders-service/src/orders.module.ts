@@ -3,16 +3,23 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
 import { OrdersController } from './orders.controller';
 import { OrdersService } from './orders.service';
 import { PrismaService } from './prisma/prisma.service';
+import { ConfigModule } from '@nestjs/config';
+import { HttpModule } from '@nestjs/axios';
 
 @Module({
-  imports: [
+  imports: [HttpModule,
+    ConfigModule.forRoot({
+      isGlobal: true,
+      envFilePath: 'apps/orders-service/.env',
+    }),
+
     ClientsModule.register([
       {
-        name: 'ORDERS_SERVICE', 
+        name: 'ORDERS_SERVICE',
         transport: Transport.RMQ,
         options: {
           urls: ['amqp://user:password@localhost:5672'],
-          queue: 'orders_queue',
+          queue: 'products_queue',
           queueOptions: { durable: true },
         },
       },
